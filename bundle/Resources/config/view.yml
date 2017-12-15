@@ -1,6 +1,7 @@
 services:
     netgen.ezplatform_site.view_builder.content:
         class: Netgen\Bundle\EzPlatformSiteApiBundle\View\Builder\ContentViewBuilder
+        public: false
         arguments:
             - '@netgen.ezplatform_site.site'
             - '@ezpublish.api.repository'
@@ -10,12 +11,14 @@ services:
 
     netgen.ezplatform_site.ngcontent_view_provider.configured:
         class: "%ezpublish.view_provider.configured.class%"
+        public: false
         arguments: ["@netgen.ezplatform_site.ngcontent_view.matcher_factory"]
         tags:
-            - {name: ezpublish.view_provider, type: 'Netgen\Bundle\EzPlatformSiteApiBundle\View\ContentView', priority: 110}
+            - { name: ezpublish.view_provider, type: 'Netgen\Bundle\EzPlatformSiteApiBundle\View\ContentView', priority: 110 }
 
     netgen.ezplatform_site.ngcontent_view.matcher_factory:
         class: "%ezpublish.view.matcher_factory.class%"
+        public: false
         arguments: ["@ezpublish.api.repository", 'eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased']
         calls:
             - [setContainer, ["@service_container"]]
@@ -23,12 +26,14 @@ services:
 
     netgen.ezplatform_site.content_view_provider.configured:
         class: "%ezpublish.view_provider.configured.class%"
+        public: false
         arguments: ["@netgen.ezplatform_site.content_view.matcher_factory"]
         tags:
-            - {name: ezpublish.view_provider, type: 'Netgen\Bundle\EzPlatformSiteApiBundle\View\ContentView', priority: 100}
+            - { name: ezpublish.view_provider, type: 'Netgen\Bundle\EzPlatformSiteApiBundle\View\ContentView', priority: 100 }
 
     netgen.ezplatform_site.content_view.matcher_factory:
         class: "%ezpublish.view.matcher_factory.class%"
+        public: false
         arguments: ["@ezpublish.api.repository", 'eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased']
         calls:
             - [setContainer, ["@service_container"]]

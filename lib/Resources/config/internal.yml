@@ -27,6 +27,7 @@ services:
 
     netgen.ezplatform_site.core.settings:
         class: Netgen\EzPlatformSiteApi\Core\Site\Settings
+        public: false
         arguments:
             - '%netgen.ezplatform_site.prioritized_languages%'
             - '%netgen.ezplatform_site.use_always_available%'
@@ -34,6 +35,7 @@ services:
 
     netgen.ezplatform_site.core.site:
         class: Netgen\EzPlatformSiteApi\Core\Site\Site
+        public: false
         arguments:
             - '@netgen.ezplatform_site.core.settings'
             - '@ezpublish.api.repository'
@@ -43,6 +45,7 @@ services:
 
     netgen.ezplatform_site.core.filter_service:
         class: Netgen\EzPlatformSiteApi\Core\Site\FilterService
+        public: false
         factory:
             - '@netgen.ezplatform_site.core.site'
             - getFilterService
@@ -50,6 +53,7 @@ services:
 
     netgen.ezplatform_site.core.find_service:
         class: Netgen\EzPlatformSiteApi\Core\Site\FindService
+        public: false
         factory:
             - '@netgen.ezplatform_site.core.site'
             - getFindService
@@ -57,6 +61,7 @@ services:
 
     netgen.ezplatform_site.core.load_service:
         class: Netgen\EzPlatformSiteApi\Core\Site\LoadService
+        public: false
         factory:
             - '@netgen.ezplatform_site.core.site'
             - getLoadService
@@ -64,6 +69,7 @@ services:
 
     netgen.ezplatform_site.core.relation_service:
         class: Netgen\EzPlatformSiteApi\Core\Site\RelationService
+        public: false
         factory:
             - '@netgen.ezplatform_site.core.site'
             - getRelationService
