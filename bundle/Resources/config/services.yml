@@ -61,3 +61,9 @@ services:
             - '@ezpublish.fieldType.ezimage.variation_service'
         tags:
             - {name: twig.runtime}
+
+    netgen.ezplatform_site.twig.runtime_loader:
+        class: Netgen\Bundle\EzPlatformSiteApiBundle\Templating\Twig\Extension\RuntimeLoader
+        public: false
+        arguments:
+            - ['@netgen.ezplatform_site.twig.runtime.field_rendering', '@netgen.ezplatform_site.twig.runtime.image']
