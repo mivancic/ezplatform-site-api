@@ -36,14 +36,28 @@ services:
 
     netgen.ezplatform_site.twig.extension.field_rendering:
         class: Netgen\Bundle\EzPlatformSiteApiBundle\Templating\Twig\Extension\FieldRenderingExtension
-        arguments:
-            - '@ezpublish.templating.field_block_renderer'
-            - '@ezpublish.fieldType.parameterProviderRegistry'
         tags:
             - {name: twig.extension}
 
+    netgen.ezplatform_site.twig.runtime.field_rendering:
+        class: Netgen\Bundle\EzPlatformSiteApiBundle\Templating\Twig\Extension\FieldRenderingRuntime
+        # public: false
+        arguments:
+            - '@twig'
+            - '@ezpublish.templating.field_block_renderer'
+            - '@ezpublish.fieldType.parameterProviderRegistry'
+        tags:
+            - {name: twig.runtime}
+
     netgen.ezplatform_site.twig.extension.image:
         class: Netgen\Bundle\EzPlatformSiteApiBundle\Templating\Twig\Extension\ImageExtension
-        arguments: ['@ezpublish.fieldType.ezimage.variation_service']
         tags:
             - {name: twig.extension}
+
+    netgen.ezplatform_site.twig.runtime.image:
+        class: Netgen\Bundle\EzPlatformSiteApiBundle\Templating\Twig\Extension\ImageRuntime
+        # public: false
+        arguments:
+            - '@ezpublish.fieldType.ezimage.variation_service'
+        tags:
+            - {name: twig.runtime}
