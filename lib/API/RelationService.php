@@ -36,12 +36,14 @@ interface RelationService
      * @param int|string $contentId
      * @param string $fieldDefinitionIdentifier
      * @param array $contentTypeIdentifiers
+     * @param int $limit
      *
      * @return \Netgen\EzPlatformSiteApi\API\Values\Content[]
      */
     public function loadFieldRelations(
         $contentId,
         $fieldDefinitionIdentifier,
-        array $contentTypeIdentifiers = []
+        array $contentTypeIdentifiers = [],
+        $limit = 0
     );
 }

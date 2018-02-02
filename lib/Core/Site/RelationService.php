@@ -56,7 +56,8 @@ class RelationService implements RelationServiceInterface
     public function loadFieldRelations(
         $contentId,
         $fieldDefinitionIdentifier,
-        array $contentTypeIdentifiers = []
+        array $contentTypeIdentifiers = [],
+        $limit = 0
     ) {
         $content = $this->site->getLoadService()->loadContent($contentId);
 
@@ -73,7 +74,8 @@ class RelationService implements RelationServiceInterface
         $relatedContentIds = $relationResolver->getRelationIds($field);
         $relatedContentItems = $this->getRelatedContentItems(
             $relatedContentIds,
-            $contentTypeIdentifiers
+            $contentTypeIdentifiers,
+            $limit
         );
         $this->sortByIdOrder($relatedContentItems, $relatedContentIds);
 
@@ -81,16 +83,17 @@ class RelationService implements RelationServiceInterface
     }
 
     /**
-     * Return an array of related Content from the given arguments.
+     * Return an array of all related Content from the given arguments if $limit is not provided.
      *
      * @throws \InvalidArgumentException As thrown by the Search API
      *
      * @param array $relatedContentIds
      * @param array $contentTypeIdentifiers
+     * @param int $limit
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content[]
+     * @return array|\eZ\Publish\API\Repository\Values\Content\Content[]
      */
-    private function getRelatedContentItems(array $relatedContentIds, array $contentTypeIdentifiers)
+    private function getRelatedContentItems(array $relatedContentIds, array $contentTypeIdentifiers, $limit = 0)
     {
         if (count($relatedContentIds) === 0) {
             return [];
@@ -107,7 +110,7 @@ class RelationService implements RelationServiceInterface
 
         $query = new Query([
             'filter' => $criteria,
-            'limit' => count($relatedContentIds),
+            'limit' => is_int($limit) && $limit > 0 ? $limit : count($relatedContentIds),
         ]);
 
         $searchResult = $this->site->getFilterService()->filterContent($query);
